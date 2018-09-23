@@ -1,0 +1,18 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [UNRELEASED - 1.01.00]
+### Added
+- Additional handlers to trigger raspberry pi pin switching and file/script run.
+
+### Fixed
+
+### Changed
+- Separated classes into their own files for separation of concerns.
+
+## 1.00.00
+### Added
+ - Initial project setup. Maker Musings original version.
