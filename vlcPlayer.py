@@ -51,27 +51,28 @@ class Media_Player():
                     self.q.pop(0)
                 else:
                     break
-
-        self.q.pop(0)
-        self.player.stop()
-        self.playNextMedia()
+        if self.q:
+            self.q.pop(0)
+            self.player.stop()
+            self.playNextMedia()
 
     def queue(self):
-        count = 1
+        queue_string = ''
         if self.q:
-            print('\nCurrently playing: ' + list(self.q[0].keys())[0])
-            print('\nQueue:')
+            queue_string += 'Currently playing: ' + list(self.q[0].keys())[0]
+            queue_string += '. Queue: '
             if len(self.q) > 1:
                 for i in range(len(self.q)-1):
-                    print(str(count) + '. ' + list(self.q[count].keys())[0])
-                    count += 1
-                print()
+                    queue_string += list(self.q[i+1].keys())[0] + ', '
+
                 
             else:
-                print('No songs in queue.\n')
+                queue_string = 'No songs in queue.'
 
         else:
-            print('No songs in queue.\n')
+            queue_string = 'No songs in queue.'
+
+        return queue_string
         
 
 

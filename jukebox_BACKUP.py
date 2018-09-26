@@ -3,11 +3,11 @@ import string, os, math, time, random, sys, re, vlc, pafy, queue, asyncio
 from os import listdir
 from vlcPlayer import Media_Player
 from mediaRetriever import Media_Retriever
-from alexaComm import Alexa_Communicator
 
-async def command_handler(command):
+async def command_handler():
     while True:
         try:
+            command = input('Command: ')
             if command[0] == '!':
                 command = command[1:].lower().split()
                 args = command[1:]
@@ -80,12 +80,11 @@ command_dict = {'play':play, 'skip':skip, 'queue':queue}
 
 retriever = Media_Retriever()
 player = Media_Player()
-alexa = Alexa_Communicator()
 
 loop = asyncio.get_event_loop()
 
 try:
-    asyncio.ensure_future(alexa.runApp())
+    asyncio.ensure_future(command_handler())
     loop.run_forever()
 
 except KeyboardInterrupt:

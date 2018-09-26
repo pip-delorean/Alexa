@@ -9,7 +9,8 @@ class Media_Retriever():
         pass
 
     def getMedia(self, song, local = False):
-        
+
+        pick_first_selection = True
         song = song.lower()
         media_titles = []
         
@@ -27,7 +28,7 @@ class Media_Retriever():
                 for song_dict in media:
                     media_titles.append(list(song_dict.keys())[0])
 
-                selection = self.selectMedia(media_titles)
+                selection = self.selectMedia(media_titles, pick_first_selection)
 
                 if selection == 0:
                     media_dict = None
@@ -63,8 +64,9 @@ class Media_Retriever():
         
     def getYoutubeURL(self, search_terms): # When passed a search term, will get youtube links and ask for a selection, then return selected link
 
+        pick_first_selection = True
         titles, search_results = self.searchYoutube(search_terms)
-        selection = self.selectMedia(titles)
+        selection = self.selectMedia(titles, pick_first_selection)
 
         if selection != 0:
             url = 'https://www.youtube.com/watch?v=' + search_results[selection-1]
@@ -93,25 +95,33 @@ class Media_Retriever():
         streamURL = audio.url
         return streamURL
 
-    def selectMedia(self, media): # Passed a list of video titles, returns a selection (int)
-        count = 1
-        selection_str = '\n'
-        selection = ''
-        for item in media:
-        
-            selection_str += str(count) + '. ' + item + '\n'
-            count += 1
+    def selectMedia(self, media, pick_first_selection = False): # Passed a list of video titles, returns a selection (int)
+
+        if not pick_first_selection:
+            count = 1
+            selection_str = '\n'
+            selection = ''
+            for item in media:
             
-            if count > RESULT_LIMIT:
-                break
+                selection_str += str(count) + '. ' + item + '\n'
+                count += 1
+                
+                if count > RESULT_LIMIT:
+                    break
+                
+            print(selection_str)
+            selection = input('Make your selection: ')
             
-        print(selection_str)
-        selection = input('Make your selection: ')
         
-        if selection.isdigit() and int(selection) <= RESULT_LIMIT:
-            selection = int(selection)
+            if selection.isdigit() and int(selection) <= RESULT_LIMIT:
+                selection = int(selection)
+
+            else:
+                selection = 0
+
         else:
-            selection = 0
+            selection = 1
+            
         return selection
     
     def findFile(self, keyword, search_dir):
