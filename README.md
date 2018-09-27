@@ -1,3 +1,0 @@
-# Alexa
-# Alexa
-# Alexa
