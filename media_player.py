@@ -54,9 +54,17 @@ class Media_Player():
         self.playNextMedia()
         
     def playbackTime(self):
-        sec = self.player.get_time() / 1000
-        m, s = divmod(sec, 60)
-        return "%02d:%02d" % (m,s)
+        
+        if self.player != None:
+            
+            sec = self.player.get_time() / 1000
+            m, s = divmod(sec, 60)
+            status = "%02d:%02d" % (m,s)
+            
+        else:
+            status = "Nothing playing currently"
+            
+        return status
     
     def skip(self, skipCount = 1):
         
@@ -84,16 +92,29 @@ class Media_Player():
         
         return status
             
-    def queue(self):
+    def listQueue(self):
         
         if len(self.queue) > 1:
             
             status = 'There are ' + str(len(self.queue)-1) + 'tracks in the queue: '
-            for i in range(1, len(self.queue)+1):
+            for i in range(1, len(self.queue)):
                 status += self.queue[i][0] + ', '
             
         else:
             status = 'The queue is empty!'
+        
+        return status
+    
+    def clearQueue(self):
+        
+        if self.player != None:
+            while len(self.queue) > 1:
+                self.queue.pop(-1)
+                
+        else:
+            self.queue = []
+            
+        status = "Queue cleared"
         
         return status
     
@@ -105,6 +126,47 @@ class Media_Player():
             
         else:
             status = 'Nothing currently playing'
+        
+        return status
+    
+    def resume(self):
+        
+        if self.player != None:
+            
+            self.player.resume()
+            
+            status = "Resumed player"
+            
+        else:
+            status = "Nothing to resume"
+        
+        return status
+    
+    def pause(self):
+        
+        if self.player != None:
+            
+            self.player.pause()
+            
+            status = "Paused player"
+            
+        else:
+            status = "Nothing to pause"
+        
+        return status
+    
+    def stop(self):
+        
+        if self.player != None:
+            
+            self.player.stop()
+            self.queue.pop(0)
+            self.player = None
+            
+            status = "Stopped player"
+            
+        else:
+            status = "Nothing to stop"
         
         return status
             

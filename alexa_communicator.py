@@ -69,3 +69,38 @@ class Alexa_Communicator():
         status = jukebox.queue()
 
         return statement(status)
+    
+    @ask.intent("ClearQueueIntent")
+    def clearQueueIntent():
+        
+        status = jukebox.clearQueue()
+
+        return statement(status)
+    
+    @ask.intent("ResumeIntent")
+    def resumeIntent():
+        
+        status = jukebox.resume()
+
+        return statement(status)
+    
+    @ask.intent("PauseIntent")
+    def pauseIntent():
+        
+        status = jukebox.pause()
+
+        return statement(status)
+    
+    @ask.intent("StopIntent")
+    def stopIntent():
+        
+        status = jukebox.stop()
+
+        return statement(status)
+    
+    @ask.intent('CurrentlyPlayingIntent')
+    def currentlyPlayingIntent():
+        
+        status = jukebox.currentlyPlaying()
+        
+        return statement(status)
