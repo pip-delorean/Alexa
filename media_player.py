@@ -6,7 +6,7 @@ class Media_Player():
 
     def __init__(self):
         
-        self.Instance = vlc.Instance()
+        self.Instance = vlc.Instance(["--network-caching=5000"])
         self.player = None
         self.queue = []
         self.playing = [1,2,3,4]
