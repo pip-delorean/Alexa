@@ -1,4 +1,4 @@
-# Alexa-Youtube-Steamer
+# Alexa-Youtube-Streamer
 A program that streams Youtube videos, controlled by Amazon Alexa.
 
 Currently requires a bluetooth speaker to be connected to the device running the script.
